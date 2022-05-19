@@ -99,17 +99,22 @@ function slotCadence(symbols: Array<SlotCoordinate>): SlotCadence {
     if (i === 0) cadences.push(0) //Does not sum if it's the first iteration, insted just adds 0 to the array
     else cadences.push(cadences[i - 1] + sumvalue);
     
-    if (columnSymbols.includes(i)) {//Checks if value is in the column symbols array and how many times it appears, than adds the appearences to the occurrencies
-      let sameValueOccurrencies = 0;
-      columnSymbols.forEach(function (value) {
-        if (i === value) {
-          sameValueOccurrencies++;
-        }
-      });
+    if (columnSymbols.includes(i)) {
+      let sameValueOccurrencies = verifyOccurrencies(columnSymbols, i);
       symbolOccurrencies += sameValueOccurrencies;
     }
   }
   return cadences;
+}
+
+function verifyOccurrencies(columnSymbols: number[], i:number){ //Checks if there's more than one instance of the same value than adds it to the ocurrencies
+  let sameValueOccurrencies = 0;
+  columnSymbols.forEach(function (value) {
+    if (i === value) {
+      sameValueOccurrencies++;
+    }
+  });
+  return sameValueOccurrencies;
 }
 
 /**
